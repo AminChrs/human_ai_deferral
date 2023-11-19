@@ -124,12 +124,13 @@ class ImageNet16h(BaseDataset):
         image_names = os.listdir(
             self.data_dir + "/Noisy Images/phase_noise_" + self.noise_version
         )
-        image_names = [x for x in image_names if x.endswith(".png")]
+        image_names = [x for x in image_names if
+                       x.endswith(".png") and not x.startswith("._")]
         # remove png extension
         image_names = [x[:-4] for x in image_names]
         image_paths = np.array(
             [
-                "/data/ml2/shared/mozannar/improved_deferral/data/osfstorage-archive/Noisy Images/phase_noise_080/"
+                "data/osfstorage-archive/Noisy Images/phase_noise_080/"
                 + x
                 + ".png"
                 for x in image_names
