@@ -204,8 +204,11 @@ class BaseSurrogateMethod(BaseMethod):
                 _, predicted = torch.max(outputs.data, 1)
                 max_probs, predicted_class = torch.max(outputs.data[:, :-1], 1)
                 predictions_all.extend(predicted_class.cpu().numpy())
-                
-                defer_scores = [ outputs.data[i][-1].item() - outputs.data[i][predicted_class[i]].item() for i in range(len(outputs.data))]
+     
+                defer_scores = [(outputs.data[i][-1].item()
+                                 - outputs.data[i][predicted_class[i]].item())
+                                * (1-outputs.data[i][-1].item())
+                                for i in range(len(outputs.data))]
                 defer_binary = [int(defer_score >= self.threshold_rej) for defer_score in defer_scores]
                 defers_all.extend(defer_binary)
                 truths_all.extend(data_y.cpu().numpy())
