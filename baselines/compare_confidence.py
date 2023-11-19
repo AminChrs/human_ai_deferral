@@ -118,7 +118,7 @@ class CompareConfidence(BaseMethod):
             data_y = data_y.to(self.device)
             hum_preds = hum_preds.to(self.device)
             hum_equal_to_y = (hum_preds == data_y).long()
-            if (self.device == torch.device("cuda")):
+            if (self.device == torch.device("cuda:0")):
                 hum_equal_to_y = \
                     torch.cuda.LongTensor(hum_equal_to_y).to(self.device)
             else:
