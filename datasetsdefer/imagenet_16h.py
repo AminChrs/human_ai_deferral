@@ -13,6 +13,8 @@ from networks.cnn import DenseNet121_CE
 import torchvision.transforms as transforms
 from datasetsdefer.generic_dataset import GenericImageExpertDataset
 from .basedataset import BaseDataset
+from argparse import Namespace
+import osfclient.cli
 
 
 # https://osf.io/2ntrf/
@@ -69,15 +71,25 @@ class ImageNet16h(BaseDataset):
             self.data_dir
             + "/Behavioral Data/human_only_classification_6per_img_export.csv"
         ):
-            raise ValueError(
-                "cant find csv, Please download the data from https://osf.io/2ntrf/ , unzip it, and construct the path of the folder in data_dir"
-            )
+            # raise ValueError(
+            #     "cant find csv, Please download the data from https://osf.io/2ntrf/ , unzip it, and construct the path of the folder in data_dir"
+            # )
+            args = Namespace(project='2ntrf', output='data/', update=False, username=None)
+            osfclient.cli.clone(args)
+            # rename folder
+            os.rename("data/osftorage", "data/osfstorage-archive")
+
+
         if not os.path.exists(
             self.data_dir + "/Noisy Images/phase_noise_" + self.noise_version
         ):
-            raise ValueError(
-                "cant find image folder, Please download the data from https://osf.io/2ntrf/ , unzip it, and construct the path of the folder in data_dir"
-            )
+            # raise ValueError(
+            #     "cant find image folder, Please download the data from https://osf.io/2ntrf/ , unzip it, and construct the path of the folder in data_dir"
+            # )
+            args = Namespace(project='2ntrf', output='data/', update=False, username=None)
+            osfclient.cli.clone(args)
+            # rename folder
+            os.rename("data/osftorage", "data/osfstorage-archive")
 
         # load the csv file
         data_behavioral = pd.read_csv(
