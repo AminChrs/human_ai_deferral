@@ -13,14 +13,8 @@ from networks.cnn import DenseNet121_CE
 import torchvision.transforms as transforms
 from datasetsdefer.generic_dataset import GenericImageExpertDataset
 from .basedataset import BaseDataset
-<<<<<<< HEAD
-from argparse import Namespace
-import osfclient.cli
-
-=======
 import osfclient.cli
 from argparse import Namespace
->>>>>>> 4211cfdd9d70a160d03e157090105b25ded77829
 
 # https://osf.io/2ntrf/
 # https://www.pnas.org/doi/10.1073/pnas.2111547119
@@ -81,14 +75,7 @@ class ImageNet16h(BaseDataset):
             # )
             args = Namespace(project='2ntrf', output='data/', update=False, username=None)
             osfclient.cli.clone(args)
-<<<<<<< HEAD
-            # rename folder
             os.rename("data/osftorage", "data/osfstorage-archive")
-
-
-=======
-            os.rename("data/osftorage", "data/osfstorage-archive")
->>>>>>> 4211cfdd9d70a160d03e157090105b25ded77829
         if not os.path.exists(
             self.data_dir + "/Noisy Images/phase_noise_" + self.noise_version
         ):
@@ -97,13 +84,7 @@ class ImageNet16h(BaseDataset):
             # )
             args = Namespace(project='2ntrf', output='data/', update=False, username=None)
             osfclient.cli.clone(args)
-<<<<<<< HEAD
-            # rename folder
             os.rename("data/osftorage", "data/osfstorage-archive")
-
-=======
-            os.rename("data/osftorage", "data/osfstorage-archive")
->>>>>>> 4211cfdd9d70a160d03e157090105b25ded77829
         # load the csv file
         data_behavioral = pd.read_csv(
             self.data_dir
