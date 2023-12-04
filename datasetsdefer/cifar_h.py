@@ -73,9 +73,9 @@ class Cifar10h(BaseDataset):
         # download cifar10h data
         # check if file already exists
         # check if file already exists
-        if not os.path.exists(self.data_dir):
-            os.makedirs(self.data_dir)
         if not os.path.exists(self.data_dir + "/cifar10h-probs.npy"):
+            if not os.path.exists(self.data_dir):
+                os.makedirs(self.data_dir)
             logging.info("Downloading cifar10h data")
             r = requests.get(
                 "https://github.com/jcpeterson/cifar-10h/raw/master/data/cifar10h-probs.npy",
