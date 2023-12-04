@@ -73,6 +73,8 @@ class Cifar10h(BaseDataset):
         # download cifar10h data
         # check if file already exists
         # check if file already exists
+        if not os.path.exists(self.data_dir):
+            os.makedirs(self.data_dir)
         if not os.path.exists(self.data_dir + "/cifar10h-probs.npy"):
             logging.info("Downloading cifar10h data")
             r = requests.get(
@@ -136,7 +138,7 @@ class Cifar10h(BaseDataset):
         kwargs = {"num_workers": 0, "pin_memory": True}
 
         train_dataset_all = datasets.__dict__[dataset.upper()](
-            "../data", train=False, download=True, transform=transform_test
+            "./data", train=False, download=True, transform=transform_test
         )
         labels_all = train_dataset_all.targets
         self.metrics_cifar10h(human_predictions, labels_all)
